@@ -201,7 +201,7 @@ public class AtendimentoFilaGUI extends javax.swing.JFrame {
         
         AtendimentoClienteGUI atendimentoClienteGUI = new AtendimentoClienteGUI();
         atendimentoClienteGUI.setVisible(true);
-        atendimentoClienteGUI.setAlwaysOnTop(true);
+        //atendimentoClienteGUI.setAlwaysOnTop(true);
         
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
