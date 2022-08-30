@@ -23,6 +23,7 @@ public class AtendimentoClienteGUI extends javax.swing.JFrame {
      */
     public AtendimentoClienteGUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
