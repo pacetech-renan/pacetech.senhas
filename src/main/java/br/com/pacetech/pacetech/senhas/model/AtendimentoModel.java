@@ -11,20 +11,21 @@ import java.util.Date;
  * @author Renan Miguel
  */
 public class AtendimentoModel {
-    
+
     private Integer id;
     private String nome;
     private Date data;
+    private Date atendimento;
     private Integer status;
 
     public AtendimentoModel() {
     }
 
-    
-    public AtendimentoModel(Integer id, String nome, Date data, Integer status) {
+    public AtendimentoModel(Integer id, String nome, Date data, Date atendimento, Integer status) {
         this.id = id;
         this.nome = nome;
         this.data = data;
+        this.atendimento = atendimento;
         this.status = status;
     }
 
@@ -52,6 +53,14 @@ public class AtendimentoModel {
         this.data = data;
     }
 
+    public Date getAtendimento() {
+        return atendimento;
+    }
+
+    public void setAtendimento(Date atendimento) {
+        this.atendimento = atendimento;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -62,7 +71,7 @@ public class AtendimentoModel {
 
     @Override
     public String toString() {
-        return "AtendimentoModel{" + "id=" + id + ", nome=" + nome + ", data=" + data + ", status=" + status + '}';
+        return "AtendimentoModel{" + "id=" + id + ", nome=" + nome + ", data=" + data + ", atendimento=" + atendimento + ", status=" + status + '}';
     }
-    
+
 }

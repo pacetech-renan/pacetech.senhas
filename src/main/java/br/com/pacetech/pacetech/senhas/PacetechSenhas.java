@@ -5,6 +5,8 @@
 
 package br.com.pacetech.pacetech.senhas;
 
+import br.com.pacetech.pacetech.senhas.gui.AtendimentoFilaGUI;
+
 /**
  *
  * @author Renan Miguel
@@ -12,6 +14,7 @@ package br.com.pacetech.pacetech.senhas;
 public class PacetechSenhas {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        AtendimentoFilaGUI atendimentoFilaGUI = new AtendimentoFilaGUI();
+        atendimentoFilaGUI.setVisible(true);
     }
 }

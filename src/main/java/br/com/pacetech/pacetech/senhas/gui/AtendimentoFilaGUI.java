@@ -4,6 +4,9 @@
  */
 package br.com.pacetech.pacetech.senhas.gui;
 
+import br.com.pacetech.pacetech.senhas.controller.AtendimentoController;
+import br.com.pacetech.pacetech.senhas.model.AtendimentoModel;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,17 +18,46 @@ import javax.swing.JTextField;
  */
 public class AtendimentoFilaGUI extends javax.swing.JFrame {
 
+    
+    private AtendimentoController atendimentoController = new AtendimentoController();
     /**
      * Creates new form AtendimentoFilaGUI
      */
     public AtendimentoFilaGUI() {
         initComponents();
+        setLocationRelativeTo(null);
         
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true){
-                    jLabelTotalPendente.setText(new Date().toString());
+                    try {
+                    
+                        AtendimentoModel atendimentoModelFirst = atendimentoController.getFirst();
+                        AtendimentoModel atendimentoModelLast = atendimentoController.getLast();
+                    
+                        if(atendimentoModelFirst == null){
+                            jLabelClienteAtual.setText("...sem atendimento...");
+                            jLabelSenhaAtual.setText("...sem atendimento...");
+                        } else {
+                            jLabelClienteAtual.setText(atendimentoModelFirst.getNome());
+                            jLabelSenhaAtual.setText(String.valueOf(atendimentoModelFirst.getId()));
+                        }
+                        
+                        if(atendimentoModelLast == null){
+                            jLabelClienteUltimo.setText("...sem clientes na fila...");
+                            jLabelSenhaUltima.setText("...sem senhas na fila...");
+                        } else {
+                            jLabelClienteUltimo.setText(atendimentoModelLast.getNome());
+                            jLabelSenhaUltima.setText(String.valueOf(atendimentoModelLast.getId()));
+                        }
+                        
+                       jLabelTotalPendente.setText("Pendentes: " + atendimentoController.getCount());
+                        
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -47,40 +79,149 @@ public class AtendimentoFilaGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelSenhaAtual = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabelSenhaUltima = new javax.swing.JLabel();
         jLabelTotalPendente = new javax.swing.JLabel();
+        jLabelClienteUltimo = new javax.swing.JLabel();
+        jLabelSenhaAtual = new javax.swing.JLabel();
+        jLabelClienteAtual = new javax.swing.JLabel();
+        jLabelUltimoCadastrado = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButtonProximo = new javax.swing.JButton();
+        jButtonCadastrar = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+
+        jButton2.setText("Próximo");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Atendimento");
+        setResizable(false);
 
-        jLabelSenhaAtual.setText("jLabel1");
+        jLabelSenhaUltima.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelSenhaUltima.setForeground(new java.awt.Color(0, 51, 255));
+        jLabelSenhaUltima.setText("...sem senhas na fila...");
 
-        jLabelTotalPendente.setText("jLabel2");
+        jLabelTotalPendente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelTotalPendente.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelTotalPendente.setText("Pendentes: 0");
+
+        jLabelClienteUltimo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelClienteUltimo.setForeground(new java.awt.Color(0, 51, 255));
+        jLabelClienteUltimo.setText("...sem clientes na fila...");
+
+        jLabelSenhaAtual.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabelSenhaAtual.setForeground(new java.awt.Color(255, 0, 51));
+        jLabelSenhaAtual.setText("...sem atendimento...");
+
+        jLabelClienteAtual.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabelClienteAtual.setForeground(new java.awt.Color(255, 0, 51));
+        jLabelClienteAtual.setText("...sem atendimento...");
+
+        jLabelUltimoCadastrado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabelUltimoCadastrado.setForeground(new java.awt.Color(153, 153, 153));
+        jLabelUltimoCadastrado.setText("ÚLTIMO CLIENTE CADASTRADO:");
+
+        jButtonProximo.setText("Próximo");
+        jButtonProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximoActionPerformed(evt);
+            }
+        });
+
+        jButtonCadastrar.setText("Cadastrar");
+        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelSenhaAtual)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(292, Short.MAX_VALUE)
-                .addComponent(jLabelTotalPendente)
-                .addGap(71, 71, 71))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 10, Short.MAX_VALUE)
+                                .addComponent(jLabelTotalPendente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(jButtonCadastrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonProximo))
+                            .addComponent(jLabelUltimoCadastrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabelSenhaUltima, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelClienteUltimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelClienteAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(jLabelUltimoCadastrado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelSenhaUltima)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelClienteUltimo)
+                .addGap(8, 8, 8)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSenhaAtual)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
-                .addComponent(jLabelTotalPendente)
-                .addGap(50, 50, 50))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelClienteAtual)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTotalPendente)
+                    .addComponent(jButtonProximo)
+                    .addComponent(jButtonCadastrar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
+        // TODO add your handling code here:
+        
+        AtendimentoClienteGUI atendimentoClienteGUI = new AtendimentoClienteGUI();
+        atendimentoClienteGUI.setVisible(true);
+        atendimentoClienteGUI.setAlwaysOnTop(true);
+        
+    }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
+    private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
+
+        try {
+            
+            
+            
+            if(atendimentoController.getCount() > 0){
+                AtendimentoModel atendimentoModel = atendimentoController.getFirst();
+                atendimentoController.update(atendimentoModel);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AtendimentoFilaGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonProximoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,8 +256,17 @@ public class AtendimentoFilaGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JButton jButtonProximo;
+    private javax.swing.JLabel jLabelClienteAtual;
+    private javax.swing.JLabel jLabelClienteUltimo;
     private javax.swing.JLabel jLabelSenhaAtual;
+    private javax.swing.JLabel jLabelSenhaUltima;
     private javax.swing.JLabel jLabelTotalPendente;
+    private javax.swing.JLabel jLabelUltimoCadastrado;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 
    

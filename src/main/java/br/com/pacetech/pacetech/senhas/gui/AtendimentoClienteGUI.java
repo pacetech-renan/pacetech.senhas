@@ -38,7 +38,7 @@ public class AtendimentoClienteGUI extends javax.swing.JFrame {
         jTextFieldNome = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
         setResizable(false);
 
@@ -97,6 +97,8 @@ public class AtendimentoClienteGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, atendimentoModel.getNome() + " Senha: " + ID + " inserido com sucesso!");
             
             jTextFieldNome.setText("");
+            
+            this.dispose();
             
         } catch (SQLException ex) {
             Logger.getLogger(AtendimentoClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
